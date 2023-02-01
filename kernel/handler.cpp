@@ -10,15 +10,8 @@ extern "C"{
 }
 #endif
 
-
-
-
-
-//struct task_list tasks[tasksNumber];
-struct task_list *p;
-struct task_list *tHead;
-
-
+// struct task_list *p;
+// struct task_list *tHead;
 
 extern "C"{
 void enable_timer(void);

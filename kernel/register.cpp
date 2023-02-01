@@ -1,5 +1,4 @@
 #include "stdint.h"
-#include "task.h"
 #include "register.h"
 
 void set_task_register(int pid, uint64_t functionAddress, enum task_type type)

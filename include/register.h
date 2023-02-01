@@ -2,7 +2,6 @@
 #ifndef _REGISTER_H
 #define _REGISTER_H
 #include "stdint.h"
-#include "task.h"
 
 struct trap_frame
 {

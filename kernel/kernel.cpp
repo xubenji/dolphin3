@@ -8,20 +8,28 @@
  * Description: 
  * 描述: 无论是x86还是arm cpu执行完引导区的代码以后就开始执行这里的代码。
  */
-#include "init.h"
 #include "stdint.h"
 #include "stdarg.h"
 #include "debug.h"
 #include "interruption.h"
+#include "handler.h"
+#ifdef __cplusplus
 extern "C" {
-#include "printk.h"
+#endif
+    #include "uart.h"
+    #include "lib.h"
+    #include "printk.h"
+    
+#ifdef __cplusplus
 }
+#endif
 
 #ifdef __cplusplus
 extern "C"{
 #endif
 
 void kernel_init(void);
+void enable_irq(void);
 
 #ifdef __cplusplus
 }
@@ -30,42 +38,18 @@ void kernel_init(void);
 
 void kernel_init(void)
 {
-  //  char* p = (char*)0xb8000;
+    init_uart();
+    printk("test!!!!!");
 
-  init_all();
+    printk("We current at level: %d\n", (uint64_t)get_el());
+    printk("It is a new kernel running in ARM64 with C++ code!!!");
 
-  printk("hello world\n");
 
-  while (1)
-  {
-    for (int i = 0; i < 1000000; i++)
+    enable_irq();
+    init_timer();
+
+    while (1)
     {
-      /* code */
+        
     }
-    printk(" T000 ");
-  }
-
-  //__asm__ __volatile__("cli");
-
-  // char a[7]="32a55AA";
-  // //int b = 567;
-  // //int c = a;
-  // //int d = &b;
-  // //printk("abc%s11 %d",a,b);
-  // printk("abc%s11 ",a);
-  // char * p = "A??c";
-  // //int cc = 5;
-  // int cc[3] = {1,2,3};
-  // printk("test: %s %x %x", p, cc, &cc);
-  // //ASSERT(0);
-
-  // while (1)
-  // {
-  //   /* code */
-  // }
-
-  // p[0] = 'C';
-  // p[1] = 0xa;
-  // print_char('S');
-  // init_idt(); 524272 524268  2097105  2097100
 }
