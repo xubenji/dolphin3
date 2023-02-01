@@ -6,7 +6,8 @@ The kernel for the purpose of the experiment mainly verifies whether the kernel 
 ### 内核将会运行在arm平台下，有以下几点原因：
 1. arm平台的汇编语言比较简洁，X86平台的汇编语言有许多种写法，at&t和intel语法，gcc貌似不支持编译at&t语法，所以每次都需要指定NASM来编译，相对麻烦
 2. arm平台的boot相对比较简洁，x86平台在boot下需要做许多操作，因为这个项目不再用作学习用途，所以使用简单arm汇编更加好。
-3. 不支持多平台也是为了简化系统，提高完成速度
+3. arm64平台下使用rpi3可以将系统的文本输出通过uart端口直接转发至控制台，而不需要开启qemu的图形界面（-nographic)，这样运行效率更快也更方便。
+4. 不支持多平台也是为了简化系统，提高完成速度。
 
 
 ### 内核将会采用C++编写
