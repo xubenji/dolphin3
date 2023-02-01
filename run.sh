@@ -1,11 +1,11 @@
 aarch64-linux-gnu-g++ -Iinclude -g -o start.o -c boot/start.S
-aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  kernel.o -c kernel/kernel.c 
-aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  debug.o -c kernel/debug.c 
-aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  printk.o -c kernel/printk.c 
-aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  init.o -c kernel/init.c 
-#aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  register.o -c kernel/register.c 
-aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  handler.o -c kernel/handler.c 
-aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  uart.o -c kernel/uart.c 
+aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  kernel.o -c kernel/kernel.cpp 
+aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  debug.o -c kernel/debug.cpp 
+aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  printk.o -c kernel/printk.cpp 
+aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  init.o -c kernel/init.cpp 
+#aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  register.o -c kernel/register.cpp 
+aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  handler.o -c kernel/handler.cpp 
+aarch64-linux-gnu-g++ -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -Iinclude -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99 -DMEM=1024 -o  uart.o -c kernel/uart.cpp 
 aarch64-linux-gnu-g++ -Iinclude -g -o handlera.o -c kernel/handlera.S
 aarch64-linux-gnu-g++ -Iinclude -g -o lib.o -c kernel/lib.S
 aarch64-linux-gnu-g++ -Iinclude -g -o mmu.o -c kernel/mmu.S
