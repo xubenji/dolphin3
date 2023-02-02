@@ -10,10 +10,9 @@ extern "C"{
 }
 #endif
 
-// struct task_list *p;
-// struct task_list *tHead;
-
+#ifdef __cplusplus
 extern "C"{
+#endif
 void enable_timer(void);
 uint32_t read_timer_status(void);
 uint32_t read_timer_freq(void);
@@ -26,7 +25,9 @@ void set_sp_el1(uint64_t sp);
 void set_sp_el0(uint64_t sp);
 void set_ttbr0(uint64_t dir0);
 void handler(uint64_t numid, uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr, uint64_t ttbr0_el1, uint64_t ttbr1_el1);
+#ifdef __cplusplus
 }
+#endif
 
 static uint32_t timer_interval = 0;
 static uint64_t ticks = 0;
