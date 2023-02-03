@@ -1,6 +1,6 @@
 #pragma once
 
-#include "memory.h"
+#include "physicalToVirtual.h"
 
 #define CNTP_EL0	        P2V(0x40000040)
 #define CNTP_STATUS_EL0     P2V(0x40000060)

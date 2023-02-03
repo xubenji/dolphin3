@@ -10,10 +10,8 @@
  */
 #include "debug.h"
 #include "handler.h"
-#include "interruption.h"
 #include "stdarg.h"
 #include "stdint.h"
-
 #ifdef __cplusplus
 extern "C"
 {

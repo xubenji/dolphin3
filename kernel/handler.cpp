@@ -1,30 +1,33 @@
 #include "stdint.h"
 #ifdef __cplusplus
-extern "C"{
+extern "C"
+{
 #endif
+#include "irq.h"
 #include "lib.h"
 #include "printk.h"
-#include "irq.h"
 #include "uart.h"
+
 #ifdef __cplusplus
 }
 #endif
 
 #ifdef __cplusplus
-extern "C"{
+extern "C"
+{
 #endif
-void enable_timer(void);
-uint32_t read_timer_status(void);
-uint32_t read_timer_freq(void);
-void set_timer_interval(uint32_t value);
-void set_elr_el(uint64_t elr);
-void disable_timer(void);
-void irq_return(uint64_t sp);
-void set_spsr_el(uint64_t spsr_el);
-void set_sp_el1(uint64_t sp);
-void set_sp_el0(uint64_t sp);
-void set_ttbr0(uint64_t dir0);
-void handler(uint64_t numid, uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr, uint64_t ttbr0_el1, uint64_t ttbr1_el1);
+    void enable_timer(void);
+    uint32_t read_timer_status(void);
+    uint32_t read_timer_freq(void);
+    void set_timer_interval(uint32_t value);
+    void set_elr_el(uint64_t elr);
+    void disable_timer(void);
+    void irq_return(uint64_t sp);
+    void set_spsr_el(uint64_t spsr_el);
+    void set_sp_el1(uint64_t sp);
+    void set_sp_el0(uint64_t sp);
+    void set_ttbr0(uint64_t dir0);
+    void handler(uint64_t numid, uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr, uint64_t ttbr0_el1, uint64_t ttbr1_el1);
 #ifdef __cplusplus
 }
 #endif
@@ -42,7 +45,7 @@ void init_timer(void)
 static void timer_interrupt_handler(uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr, uint64_t ttbr0_el1, uint64_t ttbr1_el1)
 {
     uint32_t status = read_timer_status();
-    //disable_timer();
+    // disable_timer();
     if (status & (1 << 2))
     {
         printk("t");

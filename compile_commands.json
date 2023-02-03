@@ -3,172 +3,168 @@
         "arguments": [
             "aarch64-linux-gnu-g++",
             "-c",
+            "-g",
+            "-o",
+            "/root/dolphin3/build/mmu.o",
+            "../kernel/mmu.S"
+        ],
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/mmu.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-g",
+            "-o",
+            "/root/dolphin3/build/handlera.o",
+            "../kernel/handlera.S"
+        ],
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/handlera.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/dolphin3/include",
             "-Wall",
-            "-O0",
+            "-O3",
             "-nostdlib",
             "-nostartfiles",
             "-ffreestanding",
             "-fpermissive",
-            "-Iinclude",
             "-g",
             "-fno-stack-protector",
             "-w",
             "-mgeneral-regs-only",
-            "-std=c99",
+            "-std=c++11",
             "-DMEM=1024",
             "-o",
-            "printk.o",
-            "kernel/printk.cpp"
+            "CMakeFiles/kernel8.elf.dir/kernel/uart.cpp.o",
+            "../kernel/uart.cpp"
         ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/printk.cpp"
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/uart.cpp"
     },
     {
         "arguments": [
             "aarch64-linux-gnu-g++",
             "-c",
-            "-Iinclude",
-            "-g",
-            "-o",
-            "handlera.o",
-            "kernel/handlera.S"
-        ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/handlera.S"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-g++",
-            "-c",
+            "-I/root/dolphin3/include",
             "-Wall",
-            "-O0",
+            "-O3",
             "-nostdlib",
             "-nostartfiles",
             "-ffreestanding",
             "-fpermissive",
-            "-Iinclude",
             "-g",
             "-fno-stack-protector",
             "-w",
             "-mgeneral-regs-only",
-            "-std=c99",
+            "-std=c++11",
             "-DMEM=1024",
             "-o",
-            "kernel.o",
-            "kernel/kernel.cpp"
+            "CMakeFiles/kernel8.elf.dir/kernel/printk.cpp.o",
+            "../kernel/printk.cpp"
         ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/kernel.cpp"
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/printk.cpp"
     },
     {
         "arguments": [
             "aarch64-linux-gnu-g++",
             "-c",
-            "-Iinclude",
             "-g",
             "-o",
-            "mmu.o",
-            "kernel/mmu.S"
+            "/root/dolphin3/build/lib.o",
+            "../kernel/lib.S"
         ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/mmu.S"
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/lib.S"
     },
     {
         "arguments": [
             "aarch64-linux-gnu-g++",
             "-c",
+            "-g",
+            "-o",
+            "/root/dolphin3/build/start.o",
+            "../boot/start.S"
+        ],
+        "directory": "/root/dolphin3/build",
+        "file": "../boot/start.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/dolphin3/include",
             "-Wall",
-            "-O0",
+            "-O3",
             "-nostdlib",
             "-nostartfiles",
             "-ffreestanding",
             "-fpermissive",
-            "-Iinclude",
             "-g",
             "-fno-stack-protector",
             "-w",
             "-mgeneral-regs-only",
-            "-std=c99",
+            "-std=c++11",
             "-DMEM=1024",
             "-o",
-            "handler.o",
-            "kernel/handler.cpp"
+            "CMakeFiles/kernel8.elf.dir/kernel/handler.cpp.o",
+            "../kernel/handler.cpp"
         ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/handler.cpp"
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/handler.cpp"
     },
     {
         "arguments": [
             "aarch64-linux-gnu-g++",
             "-c",
+            "-I/root/dolphin3/include",
             "-Wall",
-            "-O0",
+            "-O3",
             "-nostdlib",
             "-nostartfiles",
             "-ffreestanding",
             "-fpermissive",
-            "-Iinclude",
             "-g",
             "-fno-stack-protector",
             "-w",
             "-mgeneral-regs-only",
-            "-std=c99",
+            "-std=c++11",
             "-DMEM=1024",
             "-o",
-            "debug.o",
-            "kernel/debug.cpp"
+            "CMakeFiles/kernel8.elf.dir/kernel/kernel.cpp.o",
+            "../kernel/kernel.cpp"
         ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/debug.cpp"
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/kernel.cpp"
     },
     {
         "arguments": [
             "aarch64-linux-gnu-g++",
             "-c",
+            "-I/root/dolphin3/include",
             "-Wall",
-            "-O0",
+            "-O3",
             "-nostdlib",
             "-nostartfiles",
             "-ffreestanding",
             "-fpermissive",
-            "-Iinclude",
             "-g",
             "-fno-stack-protector",
             "-w",
             "-mgeneral-regs-only",
-            "-std=c99",
+            "-std=c++11",
             "-DMEM=1024",
             "-o",
-            "uart.o",
-            "kernel/uart.cpp"
+            "CMakeFiles/kernel8.elf.dir/kernel/debug.cpp.o",
+            "../kernel/debug.cpp"
         ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/uart.cpp"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-g++",
-            "-c",
-            "-Iinclude",
-            "-g",
-            "-o",
-            "start.o",
-            "boot/start.S"
-        ],
-        "directory": "/root/dolphin3",
-        "file": "boot/start.S"
-    },
-    {
-        "arguments": [
-            "aarch64-linux-gnu-g++",
-            "-c",
-            "-Iinclude",
-            "-g",
-            "-o",
-            "lib.o",
-            "kernel/lib.S"
-        ],
-        "directory": "/root/dolphin3",
-        "file": "kernel/lib.S"
+        "directory": "/root/dolphin3/build",
+        "file": "../kernel/debug.cpp"
     }
 ]
