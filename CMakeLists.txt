@@ -31,7 +31,7 @@ foreach(ASM_FILE ${SOURCE_FILES})
         add_custom_command(OUTPUT ${ASM_OBJECT_FILE}
                            COMMAND ${CMAKE_ASM_COMPILER} ${ASM_FLAGS} -o ${ASM_OBJECT_FILE} -c ${ASM_FILE}
                            DEPENDS ${ASM_FILE}
-                           COMMENT "Building Assembly Object ${ASM_FILE}")
+                           COMMENT "Building Assembly object ${ASM_OBJECT_FILE}")
         set(ASM_OBJECT_FILES ${ASM_OBJECT_FILES} ${ASM_OBJECT_FILE})
     endif()
 endforeach()

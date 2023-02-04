@@ -38,14 +38,14 @@ extern "C"
 void kernel_init(void)
 {
     init_uart();
+    
     printk("test!!!!!");
-
     printk("We current at level: %d\n", (uint64_t)get_el());
     printk("It is a new kernel running in ARM64 with C++ code!!!");
 
     enable_irq();
     init_timer();
-
+    printk("\n");
     while (1)
     {
     }
