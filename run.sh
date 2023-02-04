@@ -1,5 +1,5 @@
 
-#rm -rf build/*
+rm -rf build/*
 cmake -S . -B build
 bear cmake --build build
 if [ "$1" = "D" ]; then

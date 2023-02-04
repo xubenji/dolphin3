@@ -3,10 +3,10 @@
 extern "C"
 {
 #endif
-#include "irq.h"
-#include "lib.h"
-#include "printk.h"
-#include "uart.h"
+#include "irq.hpp"
+#include "lib.hpp"
+#include "printk.hpp"
+#include "uart.hpp"
 
 #ifdef __cplusplus
 }

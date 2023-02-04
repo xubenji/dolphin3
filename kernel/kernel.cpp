@@ -8,17 +8,17 @@
  * Description:
  * 描述: 无论是x86还是arm cpu执行完引导区的代码以后就开始执行这里的代码。
  */
-#include "debug.h"
-#include "handler.h"
+#include "debug.hpp"
+#include "handler.hpp"
 #include "stdarg.h"
 #include "stdint.h"
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-#include "lib.h"
-#include "printk.h"
-#include "uart.h"
+#include "lib.hpp"
+#include "printk.hpp"
+#include "uart.hpp"
 
 #ifdef __cplusplus
 }

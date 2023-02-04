@@ -1,7 +1,7 @@
-#include "debug.h"
+#include "debug.hpp"
 #include "stdint.h"
 extern "C" {
-#include "printk.h"
+#include "printk.hpp"
 }
 
 void error_check(uint8_t *file, uint64_t line, uint8_t *infor){

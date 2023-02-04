@@ -1,9 +1,9 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-#include "uart.h"
-#include "lib.h"
-#include "handler.h"
+#include "uart.hpp"
+#include "lib.hpp"
+#include "handler.hpp"
 #ifdef __cplusplus
 }
 #endif

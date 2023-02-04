@@ -1,6 +1,6 @@
 #pragma once
 
-#include "physicalToVirtual.h"
+#include "physicalToVirtual.hpp"
 
 #define CNTP_EL0	        P2V(0x40000040)
 #define CNTP_STATUS_EL0     P2V(0x40000060)
