@@ -6,6 +6,8 @@
 .global memmove
 .global memcmp
 .global get_el
+.global get_ttbr0_el1
+.global get_ttbr1_el1
 
 get_el:
     mrs x0, currentel
@@ -86,4 +88,11 @@ copy:
 
 memcpy_end:
     ret
-    
+
+get_ttbr0_el1:
+    mrs x0, ttbr0_el1
+    ret
+
+get_ttbr1_el1:
+    mrs x0, TTBR1_EL1
+    ret

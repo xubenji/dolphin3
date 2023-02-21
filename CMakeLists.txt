@@ -14,7 +14,7 @@ message("Project directory: ${PROJECT_DIR}")
 set(LINKER_SCRIPT ${PROJECT_DIR}/lds/link_arm.lds)
 
 # Set the flags to use
-set(CXX_FLAGS -Wall -O3 -nostdlib -nostartfiles -ffreestanding -fpermissive -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c++11 -DMEM=1024)
+set(CXX_FLAGS -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c++11 -DMEM=1024)
 set(ASM_FLAGS -g)
 
 # Set the linker flags
