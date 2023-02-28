@@ -1,1 +1,194 @@
-[]
+[
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/benjixu/dolphin3/include",
+            "-Wall",
+            "-O0",
+            "-nostdlib",
+            "-nostartfiles",
+            "-ffreestanding",
+            "-fpermissive",
+            "-g",
+            "-fno-stack-protector",
+            "-w",
+            "-mgeneral-regs-only",
+            "-std=c++11",
+            "-DMEM=1024",
+            "-o",
+            "CMakeFiles/kernel8.elf.dir/kernel/handler.cpp.o",
+            "../kernel/handler.cpp"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/handler.cpp"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/benjixu/dolphin3/include",
+            "-Wall",
+            "-O0",
+            "-nostdlib",
+            "-nostartfiles",
+            "-ffreestanding",
+            "-fpermissive",
+            "-g",
+            "-fno-stack-protector",
+            "-w",
+            "-mgeneral-regs-only",
+            "-std=c++11",
+            "-DMEM=1024",
+            "-o",
+            "CMakeFiles/kernel8.elf.dir/kernel/debug.cpp.o",
+            "../kernel/debug.cpp"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/debug.cpp"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/benjixu/dolphin3/include",
+            "-Wall",
+            "-O0",
+            "-nostdlib",
+            "-nostartfiles",
+            "-ffreestanding",
+            "-fpermissive",
+            "-g",
+            "-fno-stack-protector",
+            "-w",
+            "-mgeneral-regs-only",
+            "-std=c++11",
+            "-DMEM=1024",
+            "-o",
+            "CMakeFiles/kernel8.elf.dir/kernel/kernel.cpp.o",
+            "../kernel/kernel.cpp"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/kernel.cpp"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-g",
+            "-o",
+            "/root/benjixu/dolphin3/build/lib.o",
+            "../kernel/lib.S"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/lib.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-g",
+            "-o",
+            "/root/benjixu/dolphin3/build/start.o",
+            "../boot/start.S"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../boot/start.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-g",
+            "-o",
+            "/root/benjixu/dolphin3/build/handlera.o",
+            "../kernel/handlera.S"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/handlera.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-g",
+            "-o",
+            "/root/benjixu/dolphin3/build/mmu.o",
+            "../boot/mmu.S"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../boot/mmu.S"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/benjixu/dolphin3/include",
+            "-Wall",
+            "-O0",
+            "-nostdlib",
+            "-nostartfiles",
+            "-ffreestanding",
+            "-fpermissive",
+            "-g",
+            "-fno-stack-protector",
+            "-w",
+            "-mgeneral-regs-only",
+            "-std=c++11",
+            "-DMEM=1024",
+            "-o",
+            "CMakeFiles/kernel8.elf.dir/kernel/kernelMemory.cpp.o",
+            "../kernel/kernelMemory.cpp"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/kernelMemory.cpp"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/benjixu/dolphin3/include",
+            "-Wall",
+            "-O0",
+            "-nostdlib",
+            "-nostartfiles",
+            "-ffreestanding",
+            "-fpermissive",
+            "-g",
+            "-fno-stack-protector",
+            "-w",
+            "-mgeneral-regs-only",
+            "-std=c++11",
+            "-DMEM=1024",
+            "-o",
+            "CMakeFiles/kernel8.elf.dir/kernel/printk.cpp.o",
+            "../kernel/printk.cpp"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/printk.cpp"
+    },
+    {
+        "arguments": [
+            "aarch64-linux-gnu-g++",
+            "-c",
+            "-I/root/benjixu/dolphin3/include",
+            "-Wall",
+            "-O0",
+            "-nostdlib",
+            "-nostartfiles",
+            "-ffreestanding",
+            "-fpermissive",
+            "-g",
+            "-fno-stack-protector",
+            "-w",
+            "-mgeneral-regs-only",
+            "-std=c++11",
+            "-DMEM=1024",
+            "-o",
+            "CMakeFiles/kernel8.elf.dir/kernel/uart.cpp.o",
+            "../kernel/uart.cpp"
+        ],
+        "directory": "/root/benjixu/dolphin3/build",
+        "file": "../kernel/uart.cpp"
+    }
+]
