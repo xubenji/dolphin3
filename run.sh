@@ -9,3 +9,17 @@ if [ "$1" = "d" ]; then
 else
     qemu-system-aarch64 -M raspi3 -m 1024 -kernel build/kernel8.img -nographic &
 fi
+cp ./build/compiler_commands.json ./
+
+
+
+
+
+
+
+
+
+
+
+
+
