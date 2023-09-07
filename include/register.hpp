@@ -1,7 +1,7 @@
 #pragma once
 #ifndef _REGISTER_H
 #define _REGISTER_H
-#include "stdint.h"
+#include <stdint.h>
 
 struct trap_frame
 {
@@ -40,7 +40,6 @@ struct trap_frame
     uint64_t spsr_el1;
     uint64_t elr_el1;
 };
-
 
 extern struct trap_frame registerList[tasksNumber];
 

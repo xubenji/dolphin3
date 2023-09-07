@@ -9,15 +9,15 @@
 #ifndef __DEBUG_H
 #define __DEBUG_H
 
-#include "stdint.h"
+#include <stdint.h>
 
-#define ASSERT(e,infor) do {                  \
-    if(!(e))                            \
-        error_check(__FILE__,__LINE__,infor); \
-} while (0)
+#define ASSERT(e, infor)                            \
+    do                                              \
+    {                                               \
+        if (!(e))                                   \
+            error_check(__FILE__, __LINE__, infor); \
+    } while (0)
 
-
-void error_check(uint8_t *file, uint64_t line, uint8_t * infor);
+void error_check(uint8_t *file, uint64_t line, uint8_t *infor);
 
 #endif
-

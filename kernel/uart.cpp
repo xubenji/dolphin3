@@ -1,5 +1,6 @@
 #ifdef __cplusplus
-extern "C"{
+extern "C"
+{
 #endif
 #include "uart.hpp"
 #include "lib.hpp"
@@ -7,29 +8,35 @@ extern "C"{
 #ifdef __cplusplus
 }
 #endif
-void puts(char *str){
+void puts(char *str)
+{
     while (*str != 0x00)
-	{
-		write_char(*str);
-		str++;
-	}
+    {
+        write_char(*str);
+        str++;
+    }
 }
 
 void write_char(unsigned char c)
 {
-    while (in_word(UART0_FR) & (1 << 5)) { }
+    while (in_word(UART0_FR) & (1 << 5))
+    {
+    }
     out_word(UART0_DR, c);
 }
 
 unsigned char read_char(void)
 {
-    while (in_word(UART0_FR) & (1 << 4)) { }
+    while (in_word(UART0_FR) & (1 << 4))
+    {
+    }
     return in_word(UART0_DR);
 }
 
 void write_string(const char *string)
 {
-    for (int i = 0; string[i] != '\0'; i++) {
+    for (int i = 0; string[i] != '\0'; i++)
+    {
         write_char(string[i]);
     }
 }

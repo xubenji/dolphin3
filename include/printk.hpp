@@ -1,15 +1,17 @@
-#ifndef	_PRINTK_H
-#define	_PRINTK_H
-#include "stdint.h"
+#ifndef _PRINTK_H
+#define _PRINTK_H
+#include <stdint.h>
 #define LINE_SIZE 160
 
-struct ScreenBuffer{
-    char * buffer;
+struct ScreenBuffer
+{
+    char *buffer;
     int column;
     int row;
 };
 #ifdef __cplusplus
-extern "C"{
+extern "C"
+{
 #endif
     void printk(const char *format, ...);
 #ifdef __cplusplus

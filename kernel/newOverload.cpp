@@ -1,0 +1,103 @@
+#include "newOverload.hpp"
+#include <cstddef>
+#include <cstdint>
+
+namespace kernelMemory
+{
+//  * 2MB4kb~2MB12KB block_size = 64字节，64字节转化为16进制是0x40，2mb12kb转化为
+//  * 2MB12KB~2MB20KB block_size = 128字节，128字节转化为16进制是0x80，
+//  * 2MB20KB~2MB28KB block_size = 256字节，256字节转化为16进制是0x100，
+int NewOverload::_blockBitMap64[0x2000 / 0x40] = {0};
+int NewOverload::_blockBitMap128[0x2000 / 0x80] = {0};
+int NewOverload::_blockBitMap256[0x2000 / 0x100] = {0};
+
+void *NewOverload::operator new(size_t size)
+{
+    uint64_t addr = allocate_mem(size);
+    if (addr < static_cast<uint64_t>(0))
+    {
+        printk("allocate_mem error\n");
+        return nullptr;
+    }
+    else
+    {
+        // printk("allocate_mem success\n");
+        return reinterpret_cast<void *>(addr);
+    }
+    // printk("\nnew the size is: %x\n", size);
+    return nullptr; // This line may not be necessary since we have conditions covering all outcomes above.
+}
+
+void NewOverload::operator delete(void *p)
+{
+    if (free_mem(reinterpret_cast<uint64_t>(p)))
+    {
+        printk("free_mem succeeded\n");
+    }
+}
+
+// 起始地址是0x201000，结束地址是0x207000
+int NewOverload::allocate_mem(size_t size)
+{
+    if (size <= 0x40)
+    {
+        for (size_t i = 0; i < 0x2000 / 0x40; i++)
+        {
+            if (_blockBitMap64[i] == 0)
+            {
+                _blockBitMap64[i] = 1;
+                return 0x201000 + i * 0x40;
+            }
+        }
+    }
+    else if (size <= 0x80)
+    {
+        for (size_t i = 0; i < 0x1000 / 0x80; i++)
+        {
+            if (_blockBitMap128[i] == 0)
+            {
+                _blockBitMap128[i] = 1;
+                return 0x203000 + i * 0x80;
+            }
+        }
+    }
+    else if (size <= 0x100)
+    {
+        for (size_t i = 0; i < 0x1000 / 0x100; i++)
+        {
+            if (_blockBitMap256[i] == 0)
+            {
+                _blockBitMap256[i] = 1;
+                return 0x205000 + i * 0x100;
+            }
+        }
+    }
+    return -1;
+}
+
+int NewOverload::free_mem(uint64_t addr)
+{
+    // 起始地址是0x201000，结束地址是0x207000
+    if (addr >= 0x201000 && addr < 0x203000)
+    {
+        int index = (addr - 0x201000) / 0x40;
+        _blockBitMap64[index] = 0;
+    }
+    else if (addr >= 0x203000 && addr < 0x205000)
+    {
+        int index = (addr - 0x203000) / 0x80;
+        _blockBitMap128[index] = 0;
+    }
+    else if (addr >= 0x205000 && addr < 0x207000)
+    {
+        int index = (addr - 0x205000) / 0x100;
+        _blockBitMap256[index] = 0;
+    }
+    else
+    {
+        return -1;
+    }
+    return true; // Return true if memory was successfully freed
+}
+
+} // namespace kernelMemory

@@ -10,9 +10,10 @@
  */
 #include "debug.hpp"
 #include "handler.hpp"
-#include "stdarg.h"
-#include "stdint.h"
 #include "kernelMemory.hpp"
+#include "stdarg.h"
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -38,7 +39,7 @@ extern "C"
 
 void kernel_init(void)
 {
-    
+
     init_uart();
 
     printk("test!!!!!");
@@ -46,7 +47,7 @@ void kernel_init(void)
     printk("It is a new kernel running in ARM64 with C++ code!!!");
 
     kernelMemory::init_kernel_memory();
-    
+
     enable_irq();
     init_timer();
     printk("\n");

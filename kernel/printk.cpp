@@ -1,6 +1,6 @@
 #include "printk.hpp"
-#include "stdint.h"
 #include "stdarg.h"
+#include <stdint.h>
 
 void printk(const char *format, ...)
 {
