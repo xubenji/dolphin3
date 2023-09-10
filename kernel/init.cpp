@@ -9,10 +9,10 @@
  * 描述: 无论是x86还是arm cpu执行完引导区的代码以后就开始执行这里的代码。
  */
 #include "debug.hpp"
-#include "handler.hpp"
-#include "kernelMemory.hpp"
-#include "stdarg.h"
 #include "file.hpp"
+#include "handler.hpp"
+#include "memoryK.hpp"
+#include "stdarg.h"
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -20,7 +20,7 @@ extern "C"
 {
 #endif
 #include "lib.hpp"
-#include "printk.hpp"
+#include "printK.hpp"
 #include "uart.hpp"
 
 #ifdef __cplusplus
@@ -31,14 +31,14 @@ extern "C"
 extern "C"
 {
 #endif
-    void kernel_init(void);
+    void init_kernel(void);
     void enable_irq(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-void kernel_init(void)
+void init_kernel(void)
 {
 
     init_uart();
@@ -48,13 +48,12 @@ void kernel_init(void)
     printk("We current at level: %d\n", (uint64_t)get_el());
     printk("It is a new kernel running in ARM64 with C++ code!!!");
 
-    kernelMemory::init_kernel_memory();
+    Kernel::init_kernel_memory();
 
     init_fs();
 
-    
-  //  enable_irq();
-  //  init_timer();
+    //  enable_irq();
+    //  init_timer();
     printk("\n");
     while (1)
     {

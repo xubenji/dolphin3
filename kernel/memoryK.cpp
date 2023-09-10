@@ -3,7 +3,7 @@
  * @Date: 2023-02-04 17:07:57
  * @LastEditors: xubenji 459547070@qq.com
  * @LastEditTime: 2023-02-04 23:50:31
- * @FilePath: /dolphin3/kernel/kernelMemory.cpp
+ * @FilePath: /dolphin3/kernel/Kernel.cpp
  * @Description: 初始化kernel的内存管理，默认虚拟机模拟树莓派3B，所以内存容量设定为1GB
  * 我们似乎需要对几个重点变量了解清楚，内核的代码被加载在0x80000(512kb)的物理地址上，
  * 但是我们需要让内核能够访问所有的虚拟地址空间，在运行完init_kernel_memory()函数后，
@@ -28,11 +28,11 @@
  * 如果类的大小超过了这个内存块，我们就分配一个新的内存块。虽然这样会有一些浪费，但是好处是便于管理.
  */
 
-#include "kernelMemory.hpp"
+#include "memoryK.hpp"
+#include "PVAddrTransfer.hpp"
 #include "debug.hpp"
-#include "newOverload.hpp"
-#include "phyVirAddrTransfer.hpp"
-#include "printk.hpp"
+#include "overloadKNew.hpp"
+#include "printK.hpp"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -46,7 +46,7 @@ extern "C"
 }
 #endif
 
-namespace kernelMemory
+namespace Kernel
 {
 
 // 内核占用的物理内存大小4MB
@@ -90,4 +90,4 @@ void map_kernel_page_dir_virtual_addr(uint64_t startAddr)
     }
 }
 
-} // namespace kernelMemory
+} // namespace Kernel

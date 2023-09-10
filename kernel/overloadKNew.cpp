@@ -1,17 +1,26 @@
-#include "newOverload.hpp"
+/*
+ * @Author: xubenji 459547070@qq.com
+ * @Date: 2023-09-10 17:07:57
+ * @LastEditors: xubenji 459547070@qq.com
+ * @LastEditTime: 2023-09-10 23:50:31
+ * @FilePath: /dolphin3/kernel/overloadKNew.cpp
+ * @Description: 所有的在kernel空间中new的内存都会从这里分配，所以所有class必须继承Kernel::KNew
+*/
+
+#include "overloadKNew.hpp"
 #include <cstddef>
 #include <cstdint>
 
-namespace kernelMemory
+namespace Kernel
 {
 //  * 2MB4kb~2MB12KB block_size = 64字节，64字节转化为16进制是0x40，2mb12kb转化为
 //  * 2MB12KB~2MB20KB block_size = 128字节，128字节转化为16进制是0x80，
 //  * 2MB20KB~2MB28KB block_size = 256字节，256字节转化为16进制是0x100，
-int NewOverload::_blockBitMap64[0x2000 / 0x40] = {0};
-int NewOverload::_blockBitMap128[0x2000 / 0x80] = {0};
-int NewOverload::_blockBitMap256[0x2000 / 0x100] = {0};
+int KNew::_blockBitMap64[0x2000 / 0x40] = {0};
+int KNew::_blockBitMap128[0x2000 / 0x80] = {0};
+int KNew::_blockBitMap256[0x2000 / 0x100] = {0};
 
-void *NewOverload::operator new(size_t size)
+void *KNew::operator new(size_t size)
 {
     uint64_t addr = allocate_mem(size);
     if (addr < static_cast<uint64_t>(0))
@@ -28,7 +37,7 @@ void *NewOverload::operator new(size_t size)
     return nullptr; // This line may not be necessary since we have conditions covering all outcomes above.
 }
 
-void NewOverload::operator delete(void *p)
+void KNew::operator delete(void *p)
 {
     if (free_mem(reinterpret_cast<uint64_t>(p)))
     {
@@ -37,7 +46,7 @@ void NewOverload::operator delete(void *p)
 }
 
 // 起始地址是0x201000，结束地址是0x207000
-int NewOverload::allocate_mem(size_t size)
+int KNew::allocate_mem(size_t size)
 {
     if (size <= 0x40)
     {
@@ -75,7 +84,7 @@ int NewOverload::allocate_mem(size_t size)
     return -1;
 }
 
-int NewOverload::free_mem(uint64_t addr)
+int KNew::free_mem(uint64_t addr)
 {
     // 起始地址是0x201000，结束地址是0x207000
     if (addr >= 0x201000 && addr < 0x203000)
@@ -100,7 +109,6 @@ int NewOverload::free_mem(uint64_t addr)
     {
         return -1;
     }
-    
 }
 
-} // namespace kernelMemory
+} // namespace Kernel

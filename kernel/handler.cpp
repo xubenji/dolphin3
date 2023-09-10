@@ -5,7 +5,7 @@ extern "C"
 #endif
 #include "irq.hpp"
 #include "lib.hpp"
-#include "printk.hpp"
+#include "printK.hpp"
 #include "uart.hpp"
 
 #ifdef __cplusplus

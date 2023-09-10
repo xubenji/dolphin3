@@ -1,10 +1,10 @@
 // 这个文件主要是写一个类，然后这个类将物理地址和虚拟地址映射起来，类
 
 #include "mapping.hpp"
+#include "PVAddrTransfer.hpp"
 #include "debug.hpp"
 #include "handler.hpp"
-#include "phyVirAddrTransfer.hpp"
-#include "printk.hpp"
+#include "printK.hpp"
 #include "uart.hpp"
 #include <stddef.h>
 #include <stdint.h>

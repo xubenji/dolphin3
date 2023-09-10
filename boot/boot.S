@@ -55,7 +55,7 @@ el1_entry:
     mov x0, #0xffff000000000000
     add sp, sp, x0
 
-    ldr x0, =kernel_init
+    ldr x0, =init_kernel
     blr x0
 
     b end

@@ -1,20 +1,20 @@
 #pragma once
+#include "PVAddrTransfer.hpp"
 #include "debug.hpp"
 #include "handler.hpp"
-#include "kernelMemory.hpp"
 #include "mapping.hpp"
-#include "phyVirAddrTransfer.hpp"
-#include "printk.hpp"
+#include "memoryK.hpp"
+#include "printK.hpp"
 #include "uart.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <stddef.h>
 #include <stdint.h>
 
-namespace kernelMemory
+namespace Kernel
 {
 
-class NewOverload
+class KNew
 {
 public:
     void *operator new(size_t size);
@@ -34,4 +34,4 @@ private:
     uint64_t _memBlockSize256 = 0x100;
 };
 
-} // namespace kernelMemory
+} // namespace Kernel
