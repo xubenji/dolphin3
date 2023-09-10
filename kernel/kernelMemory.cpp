@@ -49,55 +49,13 @@ extern "C"
 namespace kernelMemory
 {
 
-// new操作仅用于内核的内存池
-class MyClass : public NewOverload
-{
-private:
-    int a;
-    int b;
-    char c;
-
-public:
-    MyClass()
-        : a(0), b(0), c('a')
-    {
-        //   printk("\nMyClass constructor\n");
-    }
-
-    ~MyClass()
-    {
-    }
-};
-
-// 内核占用的物理内存大小
+// 内核占用的物理内存大小4MB
 uint64_t kernelOccupiedMemSize = 0x400000;
-
-void test_class()
-{
-    MyClass *myClass1 = new MyClass;
-    printk("Created MyClass1 at: %x\n", myClass1);
-    MyClass *myClass2 = new MyClass;
-    printk("Created MyClass2 at: %x\n", myClass2);
-    delete myClass1; // 删除第一个对象
-    MyClass *myClass3 = new MyClass;
-    printk("Created MyClass3 at: %x\n", myClass3);
-    MyClass *myClass4 = new MyClass;
-    printk("Created MyClass4 at: %x\n", myClass4);
-    delete myClass2; // 删除第二个对象
-    MyClass *myClass5 = new MyClass;
-    printk("Created MyClass5 at: %x\n", myClass5);
-    MyClass *myClass6 = new MyClass;
-    printk("Created MyClass6 at: %x\n", myClass6);
-    delete myClass4; // 删除第四个对象
-    MyClass *myClass7 = new MyClass;
-    printk("Created MyClass7 at: %x\n", myClass7);
-}
 
 void init_kernel_memory()
 {
     printk("\n");
-    // KernelMemPool *m = new KernelMemPool;
-    test_class();
+
     uint64_t pageDir0Addr = get_ttbr1_el1();
     uint64_t *p = pageDir0Addr;
     uint64_t pageDir1Addr = (*p >> 8) << 8;

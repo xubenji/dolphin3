@@ -14,14 +14,14 @@ message("Project directory: ${PROJECT_DIR}")
 set(LINKER_SCRIPT ${PROJECT_DIR}/lds/link_arm.lds)
 
 # Set the flags to use
-set(CXX_FLAGS -Wall -O0 -nostdlib -nostartfiles -ffreestanding -fpermissive -g -fno-stack-protector -c -w -mgeneral-regs-only -fno-exceptions -fno-rtti -std=c++11 -DMEM=1024)
+set(CXX_FLAGS -Wall -O2 -nostdlib -nostartfiles -ffreestanding -fpermissive -g -fno-stack-protector -c -w -mgeneral-regs-only -fno-exceptions -fno-rtti -std=c++11 -DMEM=1024)
 set(ASM_FLAGS -g)
 
 # Set the linker flags
 set(LINKER_FLAGS -nostdlib -nostartfiles)
 
 # Add the source files
-file(GLOB_RECURSE SOURCE_FILES "kernel/*.cpp" "kernel/*.S" "boot/*.S")
+file(GLOB_RECURSE SOURCE_FILES "kernel/*.cpp" "kernel/*.S" "boot/*.S" "fs/*.cpp")
 
 # Compile .S files
 foreach(ASM_FILE ${SOURCE_FILES})

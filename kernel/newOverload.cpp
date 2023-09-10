@@ -82,22 +82,25 @@ int NewOverload::free_mem(uint64_t addr)
     {
         int index = (addr - 0x201000) / 0x40;
         _blockBitMap64[index] = 0;
+        return true;
     }
     else if (addr >= 0x203000 && addr < 0x205000)
     {
         int index = (addr - 0x203000) / 0x80;
         _blockBitMap128[index] = 0;
+        return true;
     }
     else if (addr >= 0x205000 && addr < 0x207000)
     {
         int index = (addr - 0x205000) / 0x100;
         _blockBitMap256[index] = 0;
+        return true;
     }
     else
     {
         return -1;
     }
-    return true; // Return true if memory was successfully freed
+    
 }
 
 } // namespace kernelMemory

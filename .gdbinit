@@ -1,4 +1,3 @@
-b el1_entry
-b setup_kvm
-
 b *0x81030 
+b *0x8005c
+b kernel_init

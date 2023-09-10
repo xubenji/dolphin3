@@ -1,6 +1,9 @@
+.equ FS_BASE, 0x30000000
+.equ FS_SIZE, 101*16*63*512
+
+
 .section ".text.boot"
 .global start
-
 
 start:
     mrs x0, mpidr_el1
@@ -34,6 +37,11 @@ el1_entry:
 
     bl setup_vm
     bl enable_mmu
+
+    ldr x0, =FS_BASE
+    ldr x1, =bss_start
+    ldr x2, =FS_SIZE
+    bl memcpy
 
     ldr x0, =bss_start
     ldr x1, =bss_end

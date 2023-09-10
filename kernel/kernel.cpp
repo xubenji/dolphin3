@@ -12,6 +12,7 @@
 #include "handler.hpp"
 #include "kernelMemory.hpp"
 #include "stdarg.h"
+#include "file.hpp"
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -48,8 +49,11 @@ void kernel_init(void)
 
     kernelMemory::init_kernel_memory();
 
-    enable_irq();
-    init_timer();
+    init_fs();
+
+    
+  //  enable_irq();
+  //  init_timer();
     printk("\n");
     while (1)
     {
