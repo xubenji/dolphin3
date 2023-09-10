@@ -42,6 +42,28 @@ target_compile_options(kernel8.elf PRIVATE ${CXX_FLAGS})
 target_link_options(kernel8.elf PRIVATE ${LINKER_FLAGS})
 set_target_properties(kernel8.elf PROPERTIES LINK_FLAGS "-T ${LINKER_SCRIPT}")
 
-# Add the binary target
+# Post-process kernel8.elf to produce kernel8.img
 add_custom_command(TARGET kernel8.elf POST_BUILD
     COMMAND aarch64-linux-gnu-objcopy ARGS -O binary ${CMAKE_BINARY_DIR}/kernel8.elf ${CMAKE_BINARY_DIR}/kernel8.img)
+
+# Add a custom target for the dd command
+add_custom_target(dd_command
+    COMMAND dd if=${CMAKE_SOURCE_DIR}/disk.img of=${CMAKE_BINARY_DIR}/kernel8.img oflag=append conv=notrunc > /dev/null 2>&1
+    COMMENT "Appending disk.img to kernel8.img"
+)
+add_dependencies(dd_command kernel8.elf)
+
+# Add custom target for the qemu-system-aarch64 with debugging named run_debug
+add_custom_target(run_debug
+    COMMAND qemu-system-aarch64 -M raspi3 -m 1024 -kernel ${CMAKE_BINARY_DIR}/kernel8.img -nographic -s -S 
+    COMMENT "Running kernel8.img with qemu (debug mode), please wait seconds..."
+)
+
+add_dependencies(run_debug dd_command)
+
+# Add custom target for the qemu-system-aarch64 without debugging named run
+add_custom_target(run
+    COMMAND qemu-system-aarch64 -M raspi3 -m 1024 -kernel ${CMAKE_BINARY_DIR}/kernel8.img -nographic 
+    COMMENT "Running kernel8.img with qemu, please wait seconds..."
+)
+add_dependencies(run dd_command)
