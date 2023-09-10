@@ -14,7 +14,7 @@
 namespace Kernel
 {
 
-class KNew
+class NewK
 {
 public:
     void *operator new(size_t size);
