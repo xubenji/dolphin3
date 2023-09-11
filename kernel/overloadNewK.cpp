@@ -59,7 +59,7 @@ int NewK::allocate_mem(size_t size)
     }
     else if (size <= 0x80)
     {
-        for (size_t i = 0; i < 0x1000 / 0x80; i++)
+        for (size_t i = 0; i < 0x2000 / 0x80; i++)
         {
             if (_blockBitMap128[i] == 0)
             {
@@ -70,7 +70,7 @@ int NewK::allocate_mem(size_t size)
     }
     else if (size <= 0x100)
     {
-        for (size_t i = 0; i < 0x1000 / 0x100; i++)
+        for (size_t i = 0; i < 0x2000 / 0x100; i++)
         {
             if (_blockBitMap256[i] == 0)
             {

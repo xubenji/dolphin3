@@ -11,6 +11,8 @@ cd build
 make run  
 如果你只想编译，直接执行  
 make  
+如果你想自定义编译优化-O2你在工作目录应该执行以下命令
+cmake -S . -B build -DOPTIMIZATION_LEVEL=-O2
 
 ## 内核运行的平台
 ### 内核将会运行在arm平台下，有以下几点原因：
