@@ -30,10 +30,8 @@ void *NewK::operator new(size_t size)
     }
     else
     {
-        // printk("allocate_mem success\n");
         return reinterpret_cast<void *>(addr);
     }
-    // printk("\nnew the size is: %x\n", size);
     return nullptr; // This line may not be necessary since we have conditions covering all outcomes above.
 }
 

@@ -49,8 +49,14 @@ void init_kernel(void)
     printk("It is a new kernel running in ARM64 with C++ code!!!");
 
     Kernel::init_kernel_memory();
+    Kernel::init_fs();
 
-    init_fs();
+    // 假设我们读取一个文件，假设我们分配一个内存地址(3MB)给p
+    void *p = 0x300000;
+    if (Kernel::load_file("TEST.BIN", (uint64_t)p) == 0)
+    {
+        printk("File data: %s\r\n", p);
+    }
 
     //  enable_irq();
     //  init_timer();

@@ -2,6 +2,16 @@
 The kernel for the purpose of the experiment mainly verifies whether the kernel is capable of tracking taint by itself.
 这是一个以实验为目的的内核，主要验证内核是否可以通过他自己来tracking taint。
 
+## 如何运行这个项目？
+首先你要确保你的系统有qemu和gcc，g++，还有要安装cmake和makefile  
+（如果你想使用其他的编译工具链ninja，anyway～）
+在工作目录下执行  
+cmake -S . -B build  
+cd build  
+make run  
+如果你只想编译，直接执行  
+make  
+
 ## 内核运行的平台
 ### 内核将会运行在arm平台下，有以下几点原因：
 1. arm平台的汇编语言比较简洁，X86平台的汇编语言有许多种写法，at&t和intel语法，gcc貌似不支持编译at&t语法，所以每次都需要指定NASM来编译，相对麻烦
