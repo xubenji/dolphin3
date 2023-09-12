@@ -90,4 +90,36 @@ void map_kernel_page_dir_virtual_addr(uint64_t startAddr)
     }
 }
 
+int blockBitMap64KB[16] = {0};
+uint64_t baseAddr = 0x90000;
+
+uint64_t mallock(void)
+{
+    // 1MB/64kb = 16
+    for (int i = 0; i < 16; i++)
+    {
+        if (blockBitMap64KB[i] == 0)
+        {
+            blockBitMap64KB[i] = 1;
+            return baseAddr + i * 0x10000;
+        }
+    }
+    ASSERT(0, "We malloc all memory from 0x90000 to 0x190000 -- mallock failed\n");
+    return (uint64_t)nullptr;
+}
+
+bool freek(uint64_t addr)
+{
+    int index = (addr - baseAddr) / 0x10000;
+    if (blockBitMap64KB[index] == 0)
+    {
+        ASSERT(0, "You are releasing a freed kernel memory\n");
+        return false;
+    }else
+    {
+        blockBitMap64KB[index] = 0;
+        return true;
+    }
+}
+
 } // namespace Kernel

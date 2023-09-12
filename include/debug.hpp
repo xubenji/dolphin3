@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 
+// 当e为false时，输出错误信息, info（string类型）为错误信息
 #define ASSERT(e, infor)                            \
     do                                              \
     {                                               \

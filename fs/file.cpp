@@ -47,7 +47,7 @@ static uint32_t get_cluster_offset(uint32_t index)
     uint32_t fat_size;
     uint32_t dir_size;
 
-    ASSERT(index, 2);
+    ASSERT(index - 1, "index can't small than 1");
 
     struct BPB *p = get_fs_bpb();
 
@@ -244,7 +244,7 @@ void init_fs(void)
     if (p[0x1fe] != 0x55 || p[0x1ff] != 0xaa)
     {
         printk("invalid signature\n");
-        ASSERT(0, -1);
+        ASSERT(0, "Can't find the file system\n");
     }
     else
     {

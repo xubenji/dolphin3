@@ -52,7 +52,19 @@ void init_kernel(void)
     Kernel::init_fs();
 
     // 假设我们读取一个文件，假设我们分配一个内存地址(3MB)给p
-    void *p = 0x300000;
+    //void *p = 0x300000;
+
+    void *p = Kernel::mallock();
+
+    uint64_t *p1 = Kernel::mallock();
+    uint64_t *p2 = Kernel::mallock();
+    uint64_t *p3 = Kernel::mallock();
+    Kernel::freek(p1);
+    Kernel::freek(p2);
+    //  Kernel::freek(p2);
+    uint64_t *p4 = Kernel::mallock();
+    uint64_t *p5 = Kernel::mallock();
+
     if (Kernel::load_file("TEST.BIN", (uint64_t)p) == 0)
     {
         printk("File data: %s\r\n", p);

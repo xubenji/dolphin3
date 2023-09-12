@@ -9,6 +9,8 @@ namespace Kernel
 #define MEMORY_SIZE 1024
 void init_kernel_memory();
 void map_kernel_page_dir_virtual_addr(uint64_t startAddr);
+uint64_t mallock(void);
+bool freek(uint64_t addr);
 } // namespace Kernel
 
 #endif
