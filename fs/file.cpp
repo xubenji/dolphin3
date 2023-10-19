@@ -208,7 +208,8 @@ static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t siz
 
 static uint32_t read_file(uint32_t cluster_index, void *buffer, uint32_t size)
 {
-    return read_raw_data(cluster_index, buffer, size);
+    uint32_t rt = read_raw_data(cluster_index, (char *)buffer, size);
+    return rt;
 }
 
 int load_file(char *path, uint64_t addr)

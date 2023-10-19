@@ -53,5 +53,6 @@ struct DirEntry {
 
 void init_fs(void);
 int load_file(char *path, uint64_t addr);
+static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size);
 
 } // namespace Kernel
