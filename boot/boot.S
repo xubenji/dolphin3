@@ -38,10 +38,12 @@ el1_entry:
     bl setup_vm
     bl enable_mmu
 
+#拷贝文件系统，非常重要！
     ldr x0, =FS_BASE
     ldr x1, =bss_start
     ldr x2, =FS_SIZE
     bl memcpy8
+####################
 
     ldr x0, =bss_start
     ldr x1, =bss_end
