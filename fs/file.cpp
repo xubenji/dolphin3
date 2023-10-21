@@ -2,7 +2,7 @@
  * Name: 
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2023-09-14 17:21:28
- * LastEditTime: 2023-10-21 13:24:30
+ * LastEditTime: 2023-10-21 14:45:22
  * LastEditors: Benji Xu
  * FilePath: /dolphin3/fs/file.cpp
  * Description: 
@@ -208,6 +208,8 @@ void FAT16::list_file(void)
 
     root_entry_count = get_root_directory_count();
     dir_entry = get_root_directory();
+
+    printk("File list in root directory:\n");
 
     for (uint32_t i = 0; i < root_entry_count; i++)
     {

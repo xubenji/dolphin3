@@ -1,8 +1,16 @@
 #pragma once
 
-#include "memory.h"
-#include "stdint.h"
 #include "overloadNewK.hpp"
+#include "stdint.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#include "memory.h"
+#ifdef __cplusplus
+}
+#endif
 
 #define FS_BASE 0x30000000
 
@@ -69,11 +77,12 @@ private:
     void remove_spaces(char *input_string);
     uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size);
     uint32_t read_file(uint32_t cluster_index, void *buffer, uint32_t size);
+    void init_fs(void);
 
 public:
     FAT16();  // Constructor, it will call init_fs
     ~FAT16(); // Optional destructor, if cleanup is needed
-    void init_fs(void);
+    
     void list_file(void);
     int load_file(char *path, uint64_t addr);
 };

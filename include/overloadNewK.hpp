@@ -5,7 +5,6 @@
 #include "mapping.hpp"
 #include "memoryK.hpp"
 #include "printK.hpp"
-#include "uart.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <stddef.h>

@@ -15,8 +15,8 @@
 #include "stdarg.h"
 #include <stdint.h>
 
-
-extern "C" char bss_start, bss_end;
+// 可以使用这个获取二进制文件的各种地址
+// extern "C" char bss_start, bss_end;
 
 #ifdef __cplusplus
 extern "C"
@@ -25,7 +25,6 @@ extern "C"
 #include "lib.hpp"
 #include "printK.hpp"
 #include "uart.hpp"
-
 #ifdef __cplusplus
 }
 #endif
@@ -49,24 +48,18 @@ void init_kernel(void)
     printk("We current at level: %d\n", (uint64_t)get_el());
     printk("It is a new kernel running in ARM64 with C++ code!!!");
 
-    // printk("\nbss_start: %x, bss_end: %x\n", (uint64_t)&bss_start, (uint64_t)&bss_end);
-
     Kernel::init_kernel_memory();
-   // Kernel::init_fs();
 
     // 假设我们读取一个文件，假设我们分配一个内存地址(3MB)给p
     //void *p = 0x300000;
-
     void *p = Kernel::mallock();
 
-    Kernel::FAT16* fs = new Kernel::FAT16();
+    Kernel::FAT16 *fs = new Kernel::FAT16();
     fs->list_file();
-    // if (Kernel::load_file("TEST.BIN", (uint64_t)p) == 0)
-    // {
-    //     printk("File data: %s\r\n", p);
-    // }
-    // printk("All files in root dir: %s\r\n", p);
-    // Kernel::list_file();
+    if (fs->load_file("TEST.BIN", (uint64_t)p) == 0)
+    {
+        printk("File data: %s\r\n", p);
+    }
 
     //  enable_irq();
     //  init_timer();

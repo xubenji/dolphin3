@@ -17,7 +17,9 @@
 # cmake -B build
 # cd build
 # make VERBOSE=1
+pkill qemu
 rm -rf build/*
-cmake -S . -B build
+rm ./compile_commands.json
+cmake -S . -B build -DOPTIMIZATION_LEVEL=-O2
 bear cmake --build build
 
