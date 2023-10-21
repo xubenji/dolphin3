@@ -2,7 +2,7 @@
  * Name: 
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2023-09-14 17:21:28
- * LastEditTime: 2023-10-20 22:32:49
+ * LastEditTime: 2023-10-21 13:24:30
  * LastEditors: Benji Xu
  * FilePath: /dolphin3/fs/file.cpp
  * Description: 
@@ -13,7 +13,6 @@
  *      load_file()函数用于读取文件内容
  *      init_fs()函数用于初始化文件系统
  */
-
 #include "file.hpp"
 #include "PVAddrTransfer.hpp"
 #include "debug.hpp"
@@ -35,72 +34,77 @@ extern "C"
 namespace Kernel
 {
 
-static struct BPB *get_fs_bpb(void)
+FAT16::FAT16()
+{
+    init_fs();
+}
+
+FAT16::~FAT16()
+{
+    // Optional destructor body, if cleanup is needed
+}
+
+struct FAT16::BPB *FAT16::get_fs_bpb(void)
 {
     uint32_t lba = *(uint32_t *)(FS_BASE + 0x1be + 8);
-
     return (struct BPB *)(FS_BASE + lba * 512);
 }
 
-static uint16_t *get_fat_table(void)
+uint16_t *FAT16::get_fat_table(void)
 {
     struct BPB *p = get_fs_bpb();
-    uint32_t offset = (uint32_t)p->reserved_sector_count * p->bytes_per_sector;
-
+    uint32_t offset = (uint32_t)p->reservedSectorCount * p->bytesPerSector;
     return (uint16_t *)((uint8_t *)p + offset);
 }
 
-static uint16_t get_cluster_value(uint32_t cluster_index)
+uint16_t FAT16::get_cluster_value(uint32_t clusterIndex)
 {
-    uint16_t *fat_table = get_fat_table();
-
-    return fat_table[cluster_index];
+    uint16_t *fatTable = get_fat_table();
+    return fatTable[clusterIndex];
 }
 
-static uint32_t get_cluster_offset(uint32_t index)
+uint32_t FAT16::get_cluster_offset(uint32_t index)
 {
-    uint32_t res_size;
-    uint32_t fat_size;
-    uint32_t dir_size;
+    uint32_t resSize;
+    uint32_t fatSize;
+    uint32_t dirSize;
 
     ASSERT(index - 1, "index can't small than 1");
 
     struct BPB *p = get_fs_bpb();
 
-    res_size = (uint32_t)p->reserved_sector_count * p->bytes_per_sector;
-    fat_size = (uint32_t)p->fat_count * p->sectors_per_fat * p->bytes_per_sector;
-    dir_size = (uint32_t)p->root_entry_count * sizeof(struct DirEntry);
+    resSize = (uint32_t)p->reservedSectorCount * p->bytesPerSector;
+    fatSize = (uint32_t)p->fatCount * p->sectorsPerFat * p->bytesPerSector;
+    dirSize = (uint32_t)p->rootEntryCount * sizeof(struct dirEntry);
 
-    return res_size + fat_size + dir_size +
-           (index - 2) * ((uint32_t)p->sectors_per_cluster * p->bytes_per_sector);
+    return resSize + fatSize + dirSize +
+           (index - 2) * ((uint32_t)p->sectorsPerCluster * p->bytesPerSector);
 }
 
-static uint32_t get_cluster_size(void)
+uint32_t FAT16::get_cluster_size(void)
 {
     struct BPB *bpb = get_fs_bpb();
-
-    return (uint32_t)bpb->bytes_per_sector * bpb->sectors_per_cluster;
+    return (uint32_t)bpb->bytesPerSector * bpb->sectorsPerCluster;
 }
 
-static uint32_t get_root_directory_count(void)
+uint32_t FAT16::get_root_directory_count(void)
 {
     struct BPB *bpb = get_fs_bpb();
-
-    return bpb->root_entry_count;
+    return bpb->rootEntryCount;
 }
 
-static struct DirEntry *get_root_directory(void)
+struct FAT16::dirEntry *FAT16::get_root_directory(void)
 {
     struct BPB *p;
     uint32_t offset;
 
     p = get_fs_bpb();
-    offset = (p->reserved_sector_count + (uint32_t)p->fat_count * p->sectors_per_fat) * p->bytes_per_sector;
+    offset = (p->reservedSectorCount + (uint32_t)p->fatCount * p->sectorsPerFat) * p->bytesPerSector;
 
-    return (struct DirEntry *)((uint8_t *)p + offset);
+    return (struct dirEntry *)((uint8_t *)p + offset);
 }
 
-static bool is_file_name_equal(struct DirEntry *dir_entry, char *name, char *ext)
+bool FAT16::is_file_name_equal(struct dirEntry *dir_entry, char *name, char *ext)
 {
     bool status = false;
     printk("dir_entry->name: %s, name: %s\n", dir_entry->name, name);
@@ -114,7 +118,7 @@ static bool is_file_name_equal(struct DirEntry *dir_entry, char *name, char *ext
     return status;
 }
 
-static bool split_path(char *path, char *name, char *ext)
+bool FAT16::split_path(char *path, char *name, char *ext)
 {
     int i;
 
@@ -151,12 +155,12 @@ static bool split_path(char *path, char *name, char *ext)
     return true;
 }
 
-static uint32_t search_file(char *path)
+uint32_t FAT16::search_file(char *path)
 {
     char name[8] = {"        "};
     char ext[3] = {"   "};
     uint32_t root_entry_count;
-    struct DirEntry *dir_entry;
+    struct dirEntry *dir_entry;
 
     bool status = split_path(path, name, ext);
 
@@ -185,7 +189,7 @@ static uint32_t search_file(char *path)
     return 0xffffffff;
 }
 
-static void remove_spaces(char *input_string)
+void FAT16::remove_spaces(char *input_string)
 {
     for (int i = 0; input_string[i] != '\0'; ++i)
     {
@@ -197,10 +201,10 @@ static void remove_spaces(char *input_string)
     }
 }
 
-void list_file(void)
+void FAT16::list_file(void)
 {
     uint32_t root_entry_count;
-    struct DirEntry *dir_entry;
+    struct dirEntry *dir_entry;
 
     root_entry_count = get_root_directory_count();
     dir_entry = get_root_directory();
@@ -224,7 +228,7 @@ void list_file(void)
     }
 }
 
-static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size)
+uint32_t FAT16::read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size)
 {
     struct BPB *bpb;
     char *data;
@@ -262,18 +266,18 @@ static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t siz
     return read_size;
 }
 
-static uint32_t read_file(uint32_t cluster_index, void *buffer, uint32_t size)
+uint32_t FAT16::read_file(uint32_t cluster_index, void *buffer, uint32_t size)
 {
     uint32_t rt = read_raw_data(cluster_index, (char *)buffer, size);
     return rt;
 }
 
-int load_file(char *path, uint64_t addr)
+int FAT16::load_file(char *path, uint64_t addr)
 {
     uint32_t index;
     uint32_t file_size;
     uint32_t cluster_index;
-    struct DirEntry *dir_entry;
+    struct dirEntry *dir_entry;
     int ret = -1;
 
     index = search_file(path);
@@ -281,8 +285,8 @@ int load_file(char *path, uint64_t addr)
     if (index != 0xffffffff)
     {
         dir_entry = get_root_directory();
-        file_size = dir_entry[index].file_size;
-        cluster_index = dir_entry[index].cluster_index;
+        file_size = dir_entry[index].fileSize;
+        cluster_index = dir_entry[index].clusterIndex;
 
         if (read_file(cluster_index, (void *)addr, file_size) == file_size)
         {
@@ -293,7 +297,7 @@ int load_file(char *path, uint64_t addr)
     return ret;
 }
 
-void init_fs(void)
+void FAT16::init_fs(void)
 {
     uint8_t *p = (uint8_t *)get_fs_bpb();
 
