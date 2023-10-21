@@ -14,6 +14,13 @@ make
 如果你想自定义编译优化-O2你在工作目录应该执行以下命令
 cmake -S . -B build -DOPTIMIZATION_LEVEL=-O2
 
+以上命令打包进入run.sh和build.sh
+在工作目录直接执行
+bash build.sh
+将会完全编译
+bash run.sh 将会完全编译和运行
+bash run.sh d将会完全编译并以调试方式运行
+
 ## 内核运行的平台
 ### 内核将会运行在arm平台下，有以下几点原因：
 1. arm平台的汇编语言比较简洁，X86平台的汇编语言有许多种写法，at&t和intel语法，gcc貌似不支持编译at&t语法，所以每次都需要指定NASM来编译，相对麻烦

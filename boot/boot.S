@@ -41,7 +41,7 @@ el1_entry:
     ldr x0, =FS_BASE
     ldr x1, =bss_start
     ldr x2, =FS_SIZE
-    bl memcpy
+    bl memcpy8
 
     ldr x0, =bss_start
     ldr x1, =bss_end

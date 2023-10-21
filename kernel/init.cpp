@@ -52,7 +52,7 @@ void init_kernel(void)
 
     // 假设我们读取一个文件，假设我们分配一个内存地址(3MB)给p
     //void *p = 0x300000;
-    void *p = Kernel::mallock();
+    void *p = (void*)Kernel::mallock();
 
     Kernel::FAT16 *fs = new Kernel::FAT16();
     fs->list_file();

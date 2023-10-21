@@ -107,7 +107,6 @@ struct FAT16::dirEntry *FAT16::get_root_directory(void)
 bool FAT16::is_file_name_equal(struct dirEntry *dir_entry, char *name, char *ext)
 {
     bool status = false;
-    printk("dir_entry->name: %s, name: %s\n", dir_entry->name, name);
 
     if (memcmp(dir_entry->name, name, 8) == 0 &&
         memcmp(dir_entry->ext, ext, 3) == 0)
@@ -228,6 +227,7 @@ void FAT16::list_file(void)
         remove_spaces(name);
         printk("%s.%s\t", name, dir_entry[i].ext);
     }
+    printk("\n");
 }
 
 uint32_t FAT16::read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size)
