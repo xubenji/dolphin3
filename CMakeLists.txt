@@ -7,6 +7,7 @@ project(KernelProject)
 set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
 set(CMAKE_ASM_COMPILER aarch64-linux-gnu-g++)
 
+
 include_directories(include)
 # Get the current project directory
 get_filename_component(PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR} ABSOLUTE)
@@ -49,6 +50,7 @@ set_target_properties(kernel8.elf PROPERTIES LINK_FLAGS "-T ${LINKER_SCRIPT}")
 # Post-process kernel8.elf to produce kernel8.img
 add_custom_command(TARGET kernel8.elf POST_BUILD
     COMMAND aarch64-linux-gnu-objcopy ARGS -O binary ${CMAKE_BINARY_DIR}/kernel8.elf ${CMAKE_BINARY_DIR}/kernel8.img)
+
 
 # Add a custom target for the dd command
 add_custom_target(dd_command

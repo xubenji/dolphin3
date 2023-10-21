@@ -9,7 +9,8 @@ namespace Kernel
 {
 void init_fs(void);
 
-struct BPB {
+struct BPB
+{
     uint8_t jump[3];
     uint8_t oem[8];
     uint16_t bytes_per_sector;
@@ -32,7 +33,8 @@ struct BPB {
     uint8_t file_system[8];
 } __attribute__((packed));
 
-struct DirEntry {
+struct DirEntry
+{
     uint8_t name[8];
     uint8_t ext[3];
     uint8_t attributes;
@@ -48,11 +50,11 @@ struct DirEntry {
     uint32_t file_size;
 } __attribute__((packed));
 
-#define ENTRY_EMPTY 0
+#define ENTRY_EMPTY   0
 #define ENTRY_DELETED 0xe5
 
 void init_fs(void);
 int load_file(char *path, uint64_t addr);
-static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size);
+void list_file(void);
 
 } // namespace Kernel

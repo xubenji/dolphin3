@@ -15,6 +15,8 @@
 #include "stdarg.h"
 #include <stdint.h>
 
+extern "C" char bss_start, bss_end;
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -42,11 +44,11 @@ void init_kernel(void)
 {
 
     init_uart();
-
     printk("\nOS info:\n");
-    printk("test!!!!!");
     printk("We current at level: %d\n", (uint64_t)get_el());
     printk("It is a new kernel running in ARM64 with C++ code!!!");
+
+    // printk("\nbss_start: %x, bss_end: %x\n", (uint64_t)&bss_start, (uint64_t)&bss_end);
 
     Kernel::init_kernel_memory();
     Kernel::init_fs();
@@ -56,19 +58,13 @@ void init_kernel(void)
 
     void *p = Kernel::mallock();
 
-    uint64_t *p1 = Kernel::mallock();
-    uint64_t *p2 = Kernel::mallock();
-    uint64_t *p3 = Kernel::mallock();
-    Kernel::freek(p1);
-    Kernel::freek(p2);
-    //  Kernel::freek(p2);
-    uint64_t *p4 = Kernel::mallock();
-    uint64_t *p5 = Kernel::mallock();
 
     if (Kernel::load_file("TEST.BIN", (uint64_t)p) == 0)
     {
         printk("File data: %s\r\n", p);
     }
+    printk("All files in root dir: %s\r\n", p);
+    Kernel::list_file();
 
     //  enable_irq();
     //  init_timer();

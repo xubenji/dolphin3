@@ -1,6 +1,7 @@
 pkill qemu
 rm -rf build/*
-cmake -S . -B build
+rm ./compile_commands.json
+cmake -S . -B build -DOPTIMIZATION_LEVEL=-O2
 bear cmake --build build
 if [ "$1" = "d" ]; then
     echo "debug mode"

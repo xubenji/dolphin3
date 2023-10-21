@@ -1,3 +1,19 @@
+/** 
+ * Name: 
+ * Author: Benji Xu <benjixu2020@gmail.com>
+ * Date: 2023-09-14 17:21:28
+ * LastEditTime: 2023-10-20 22:32:49
+ * LastEditors: Benji Xu
+ * FilePath: /dolphin3/fs/file.cpp
+ * Description: 
+ * 描述: 目前仅支持fat16文件系统，不支持目录，文件名长度最大为8，后缀最大为3
+ *      仅支持读取文件，不支持写入文件
+ *      仅支持读取根目录下的文件
+ *      list_file()函数用于列出根目录下的文件
+ *      load_file()函数用于读取文件内容
+ *      init_fs()函数用于初始化文件系统
+ */
+
 #include "file.hpp"
 #include "PVAddrTransfer.hpp"
 #include "debug.hpp"
@@ -87,6 +103,7 @@ static struct DirEntry *get_root_directory(void)
 static bool is_file_name_equal(struct DirEntry *dir_entry, char *name, char *ext)
 {
     bool status = false;
+    printk("dir_entry->name: %s, name: %s\n", dir_entry->name, name);
 
     if (memcmp(dir_entry->name, name, 8) == 0 &&
         memcmp(dir_entry->ext, ext, 3) == 0)
@@ -168,6 +185,45 @@ static uint32_t search_file(char *path)
     return 0xffffffff;
 }
 
+static void remove_spaces(char *input_string)
+{
+    for (int i = 0; input_string[i] != '\0'; ++i)
+    {
+        if (input_string[i] == ' ')
+        {
+            input_string[i] = '\0';
+            break;
+        }
+    }
+}
+
+void list_file(void)
+{
+    uint32_t root_entry_count;
+    struct DirEntry *dir_entry;
+
+    root_entry_count = get_root_directory_count();
+    dir_entry = get_root_directory();
+
+    for (uint32_t i = 0; i < root_entry_count; i++)
+    {
+        if (dir_entry[i].name[0] == ENTRY_EMPTY || dir_entry[i].name[0] == ENTRY_DELETED)
+            continue;
+
+        if (dir_entry[i].attributes == 0xf)
+        {
+            continue;
+        }
+        char name[8] = {"        "};
+        for (int j = 0; j < 8; j++)
+        {
+            name[j] = dir_entry[i].name[j];
+        }
+        remove_spaces(name);
+        printk("%s.%s\t", name, dir_entry[i].ext);
+    }
+}
+
 static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size)
 {
     struct BPB *bpb;
@@ -224,7 +280,6 @@ int load_file(char *path, uint64_t addr)
 
     if (index != 0xffffffff)
     {
-
         dir_entry = get_root_directory();
         file_size = dir_entry[index].file_size;
         cluster_index = dir_entry[index].cluster_index;
