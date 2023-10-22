@@ -19,6 +19,13 @@ namespace Kernel
 
 class FAT16 : public NewK
 {
+public:
+    FAT16();  // Constructor, it will call init_fs
+    ~FAT16(); // Optional destructor, if cleanup is needed
+
+    void list_file(void);
+    int load_file(char *path, uint64_t addr);
+
 private:
     struct BPB
     {
@@ -78,13 +85,6 @@ private:
     uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t size);
     uint32_t read_file(uint32_t cluster_index, void *buffer, uint32_t size);
     void init_fs(void);
-
-public:
-    FAT16();  // Constructor, it will call init_fs
-    ~FAT16(); // Optional destructor, if cleanup is needed
-    
-    void list_file(void);
-    int load_file(char *path, uint64_t addr);
 };
 
 } // namespace Kernel

@@ -1,4 +1,5 @@
 b *0x81030 
 b *0x8005c
+b *0x80084
 b init_kernel
 

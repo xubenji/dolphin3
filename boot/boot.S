@@ -57,8 +57,16 @@ el1_entry:
     mov x0, #0xffff000000000000
     add sp, sp, x0
 
+    mov x0, #0b1111000000
+    msr spsr_el1, x0
+    adr x0, el0_entry
+    msr elr_el1, x0
+    eret
+
     ldr x0, =init_kernel
     blr x0
 
+el0_entry:
+    wfi
     b end
     
