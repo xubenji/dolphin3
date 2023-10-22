@@ -15,11 +15,11 @@ make
 cmake -S . -B build -DOPTIMIZATION_LEVEL=-O2
 
 以上命令打包进入run.sh和build.sh
-在工作目录直接执行
-bash build.sh
-将会完全编译
-bash run.sh 将会完全编译和运行
-bash run.sh d将会完全编译并以调试方式运行
+在工作目录直接执行  
+bash build.sh  
+将会完全编译  
+bash run.sh 将会完全编译和运行  
+bash run.sh d将会完全编译并以调试方式运行  
 
 ## 内核运行的平台
 ### 内核将会运行在arm平台下，有以下几点原因：
