@@ -50,9 +50,25 @@ void init_kernel(void)
 
     Kernel::init_kernel_memory();
 
+    uint64_t ttbr0_el1 = 0x190000;
+
+    uint64_t *pp = (uint64_t *)ttbr0_el1;
+    *pp = 0x191000 + 0x447;
+    pp = 0x191000;
+    *pp = 0x192000 + 0x447;
+    pp = 0x192000 + 0x8 + 0x8;
+    *pp = 0x445 + 0x400000;
+    uint32_t *ins = 0x400000;
+    *ins = 0xD503201F;
+    *(ins+1) = 0xCA000000;
+    *(ins+2) = 0xD503201F;
+    
+
+    set_ttbr0_el1(ttbr0_el1);
+    access_el0();
     // 假设我们读取一个文件，假设我们分配一个内存地址(3MB)给p
     //void *p = 0x300000;
-    void *p = (void*)Kernel::mallock();
+    void *p = (void *)Kernel::mallock();
 
     Kernel::FAT16 *fs = new Kernel::FAT16();
     fs->list_file();

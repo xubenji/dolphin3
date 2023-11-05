@@ -9,6 +9,28 @@
 .global get_el
 .global get_ttbr0_el1
 .global get_ttbr1_el1
+.global access_el0
+.global set_ttbr0_el1
+
+set_ttbr0_el1:
+    msr ttbr0_el1, x0
+    tlbi	vmalle1is
+    dsb	ish
+    isb
+    ret
+
+access_el0:
+    mov x0, #0b1111000000
+    msr spsr_el1, x0
+    adr x0, el0_entry
+    mov x0, #0
+    mov x0, 0x400000
+    msr elr_el1, x0
+    eret
+
+el0_entry:
+    wfi
+    b end
 
 get_el:
     mrs x0, currentel
