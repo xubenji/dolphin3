@@ -93,6 +93,12 @@ void map_kernel_page_dir_virtual_addr(uint64_t startAddr)
 int blockBitMap64KB[16] = {0};
 uint64_t baseAddr = 0x90000;
 
+/** 
+ * function: mallock 
+ * return [void]
+ * description: 在地址0x90000（576KB）处开始分配内存空间，每次分配64KB，一共分配16次，也就是1MB
+ * 0x90000~0x190000，所以最多只能分配16次，如果分配失败，就会触发断言。
+ */
 uint64_t mallock(void)
 {
     // 1MB/64kb = 16

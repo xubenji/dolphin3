@@ -12,8 +12,10 @@
 #include "file.hpp"
 #include "handler.hpp"
 #include "memoryK.hpp"
-#include "stdarg.h"
+#include "readELF.hpp"
+#include <stdarg.h>
 #include <stdint.h>
+
 
 // 可以使用这个获取二进制文件的各种地址
 // extern "C" char bss_start, bss_end;
@@ -50,31 +52,42 @@ void init_kernel(void)
 
     Kernel::init_kernel_memory();
 
-    uint64_t ttbr0_el1 = 0x190000;
+    /******************************/
+    // 未来实现用户进程要用到
+    // uint64_t ttbr0_el1 = 0x190000;
+    // uint64_t *pp = (uint64_t *)ttbr0_el1;
+    // *pp = 0x191000 + 0x447;
+    // pp = 0x191000;
+    // *pp = 0x192000 + 0x447;
+    // pp = 0x192000 + 0x8 + 0x8;
+    // *pp = 0x445 + 0x400000;
+    // uint32_t *ins = 0x400000;
+    // *ins = 0xD503201F;
+    // *(ins+1) = 0xCA000000;
+    // *(ins+2) = 0xD503201F;
+    // set_ttbr0_el1(ttbr0_el1);
+    // access_el0();
+    /******************************/
 
-    uint64_t *pp = (uint64_t *)ttbr0_el1;
-    *pp = 0x191000 + 0x447;
-    pp = 0x191000;
-    *pp = 0x192000 + 0x447;
-    pp = 0x192000 + 0x8 + 0x8;
-    *pp = 0x445 + 0x400000;
-    uint32_t *ins = 0x400000;
-    *ins = 0xD503201F;
-    *(ins+1) = 0xCA000000;
-    *(ins+2) = 0xD503201F;
-    
-
-    set_ttbr0_el1(ttbr0_el1);
-    access_el0();
-    // 假设我们读取一个文件，假设我们分配一个内存地址(3MB)给p
-    //void *p = 0x300000;
     void *p = (void *)Kernel::mallock();
 
     Kernel::FAT16 *fs = new Kernel::FAT16();
     fs->list_file();
-    if (fs->load_file("TEST.BIN", (uint64_t)p) == 0)
+    // if (fs->load_file("HELLO.ELF", (uint64_t)p) == 0)
+    // {
+    //     printk("File data: %s\r\n", p);
+    // }
+
+    Kernel::ELF *elf = new Kernel::ELF();
+    if (elf->load("HELLO.ELF"))
     {
-        printk("File data: %s\r\n", p);
+        elf->print_header();
+        // 打印对应的section还存在问题
+        elf->print_section(".text");
+    }
+    else
+    {
+        printk("Failed to load ELF file.\n");
     }
 
     //  enable_irq();

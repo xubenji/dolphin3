@@ -2,7 +2,7 @@
  * Name: 
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2023-09-14 17:21:28
- * LastEditTime: 2023-10-21 14:45:22
+ * LastEditTime: 2023-11-05 20:52:22
  * LastEditors: Benji Xu
  * FilePath: /dolphin3/fs/file.cpp
  * Description: 
@@ -299,6 +299,11 @@ int FAT16::load_file(char *path, uint64_t addr)
     return ret;
 }
 
+/** 
+ * function: init_fs
+ * return [void]
+ * description: 初始化文件系统，检查文件系统的合法性，也就是检查文件系统的标志魔数
+ */
 void FAT16::init_fs(void)
 {
     uint8_t *p = (uint8_t *)get_fs_bpb();
@@ -310,7 +315,7 @@ void FAT16::init_fs(void)
     }
     else
     {
-        printk("file system is loaded\r\n");
+        // printk("file system is loaded\r\n");
     }
 }
 
