@@ -1,7 +1,6 @@
 #pragma once
 
-#include "file.hpp"    // 包含FAT16类的定义
-#include "memoryK.hpp" // 包含内存管理相关函数
+#include "file.hpp"     
 #include "overloadNewK.hpp"
 #include <stdbool.h>
 

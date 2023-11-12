@@ -2,7 +2,7 @@
 #include "file.hpp"
 #include "memoryK.hpp"
 #include "printK.hpp"
-#include "printK.hpp" // 假设printk函数定义在此头文件中
+#include "printK.hpp" 
 #include "uart.hpp"
 #include <stdint.h>
 
